@@ -1,0 +1,144 @@
+---
+- hosts: 127.0.0.1
+
+  vars:
+    wifi_ch: "{{ host_id | int(0, 16) % 11 }}" # NOTE: Calculate the Wi-Fi AP channel to be used from HOST_ID(HEX)
+
+  tasks:
+    - name: Install httplib(pip) for uri module
+      pip: name=httplib2
+
+    - name: Report annotation to FrightBoard
+      uri:
+        url: "http://conf.local:3000/api/v1/statuses?iid={{host_id}}"
+        method: POST
+        timeout: 3
+        HEADER_Content-Type: "application/x-www-form-urlencoded"
+        body: "annotation={\"wlan0_macaddress\":\"{{ ansible_wlan0.macaddress }}\",\"wifi_ch\":\"{{ wifi_ch }}\"}"
+        status_code: 200,201
+      ignore_errors: True
+
+    - get_url: >
+        url=http://conf.local:3002/2015-1121_handson_templates/etc_hostname
+        dest=/var/tmp/etc_hostname
+        sha256sum=eda09029a1dffdb02725eae768932a4930436c6958c017e363e63ea680ac95c9
+        force=yes
+
+    - template: >
+        src=/var/tmp/etc_hostname
+        dest=/etc/hostname
+        owner=root
+        group=root
+        mode=0644
+
+    - get_url: >
+        url=http://conf.local:3002/2015-1121_handson_templates/etc_hosts
+        dest=/var/tmp/etc_hosts
+        sha256sum=610861adb0e14722ab002ee95d906ee9d5ffc0a181ffafb6c3ceb29b869b8f49
+        force=yes
+
+    - template: >
+        src=/var/tmp/etc_hosts
+        dest=/etc/hosts
+        owner=www-data
+        group=www-data
+        mode=0644
+
+    - get_url: >
+        url=http://conf.local:3002/2015-1121_handson_templates/etc_network_interfaces
+        dest=/var/tmp/etc_network_interfaces
+        sha256sum=ab22148243fb1bfc4cecbc065b0eddb8d0fc773867d9c90dfdc30aff5cde4f58
+        force=yes
+
+    - template: >
+        src=/var/tmp/etc_network_interfaces
+        dest=/etc/network/interfaces
+        owner=www-data
+        group=www-data
+        mode=0644
+
+    - get_url: >
+        url=http://conf.local:3002/2015-1121_handson_templates/var_webui_config_hostapd.conf
+        dest=/var/tmp/var_webui_config_hostapd.conf
+        sha256sum=b39c5fe4978e9f0067ee27746a03c9d9b4d9458844efdebd733ca3762fc6f43e
+        force=yes
+
+    - template: >
+        src=/var/tmp/var_webui_config_hostapd.conf
+        dest=/var/webui/config/hostapd.conf
+        owner=www-data
+        group=www-data
+        mode=0644
+
+    - get_url: >
+        url=http://conf.local:3002/2015-1121_handson_templates/var_webui_config_network.sh
+        dest=/var/tmp/var_webui_config_network.sh
+        sha256sum=f0be106441ee468c108b74fbc9c30e6a0d25faf2cf043f2056eff437d5336bb3
+        force=yes
+
+    - template: >
+        src=/var/tmp/var_webui_config_network.sh
+        dest=/var/webui/config/network.sh
+        owner=www-data
+        group=www-data
+        mode=0644
+
+    - get_url: >
+        url=http://conf.local:3002/2015-1121_handson_templates/var_webui_config_system.sh
+        dest=/var/tmp/var_webui_config_system.sh
+        sha256sum=a8dc372d41c09c746fa331552757c9ebf908b6daf78b5ae7d0d047c4a07e8493
+        force=yes
+
+    - template: >
+        src=/var/tmp/var_webui_config_system.sh
+        dest=/var/webui/config/system.sh
+        owner=www-data
+        group=www-data
+        mode=0644
+
+    - get_url: >
+        url=http://conf.local:3002/2015-1121_handson_templates/var_webui_config_webui.conf
+        dest=/var/tmp/var_webui_config_webui.conf
+        sha256sum=3ffcb7f3eec52241dbe75a4a096f848883bc6de0a4f33372367eed634f52366c
+        force=yes
+
+    - template: >
+        src=/var/tmp/var_webui_config_webui.conf
+        dest=/var/webui/config/webui.conf
+        owner=www-data
+        group=www-data
+        mode=0644
+
+    - get_url: >
+        url=http://conf.local:3002/2015-1121_handson_templates/var_webui_local_bin_iptables.sh
+        dest=/var/tmp/var_webui_local_bin_iptables.sh
+        sha256sum=6085467e8f2e595510b4230b8747ad6b0f6a8e4c3eca9692d8dc11fd7a794aa4
+        force=yes
+
+    - template: >
+        src=/var/tmp/var_webui_local_bin_iptables.sh
+        dest=/var/webui/local/bin/iptables.sh
+        owner=root
+        group=root
+        mode=0755
+
+    - service: >
+        name=openblocks-iot-webui
+        enabled=yes
+
+    - service: >
+        name=supervisor
+        enabled=no
+
+    - name: Report completed to FrightBoard
+      uri:
+        url: "http://conf.local:3000/api/v1/statuses?iid={{host_id}}"
+        method: POST
+        timeout: 3
+        HEADER_Content-Type: "application/x-www-form-urlencoded"
+        body: "status=completed"
+        status_code: 200,201
+      ignore_errors: True
+
+    - command: halt
+
