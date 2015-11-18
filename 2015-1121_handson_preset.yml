@@ -2,7 +2,7 @@
 - hosts: 127.0.0.1
 
   vars:
-    wifi_ch: "{{ host_id | int(0, 16) % 11 }}" # NOTE: Calculate the Wi-Fi AP channel to be used from HOST_ID(HEX)
+    wifi_ch: "{{ host_id | int(0, 16) % 11 + 1 }}" # NOTE: Calculate the Wi-Fi AP channel to be used from HOST_ID(HEX)
 
   tasks:
     - name: Install httplib(pip) for uri module
