@@ -1,4 +1,24 @@
 ---
 - hosts: 127.0.0.1
+
+  vars:
+    work_dir: "/var/tmp"
+    base_url: "https://"
+
   tasks:
     - debug: msg="Hello ansible. host_id = {{ host_id }}"
+
+#    - get_url: url={{ base_url }}/{{ item.name }} dest={{ work_dir }} sha256sum={{ item.sha256sum }} force=yes
+#      with_items:
+#        - {name: "", sha256sum: ""}
+
+#    - copy: src={{ work_dir }} dst=bb
+
+#    - template: src={{ work_dir }}/{{ item }} dest=/dst/{{ item }} owner=root group=root mode=0644
+#      with_items:
+#        - pd-handler-uart
+#        - ssh
+
+#    - service: name=openblocks-iot-webui enabled=yes
+#    - command: halt
+#EoPlaybook
