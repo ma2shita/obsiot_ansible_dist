@@ -1,15 +1,3 @@
-Ansible playbook distributor for OpenBlocks IoT
-===============================================
-
-Ansible playbook distribute via HTTP
-
-Run HTTPd
----------
-
-```
-$ make
-```
-
-NOTE: Require Ruby 2.x
+Ansible playbook and archives for Hands-on in HackDay of JAWS DAYS 2016
 
 EOT
