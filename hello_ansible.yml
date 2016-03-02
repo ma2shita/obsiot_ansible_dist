@@ -1,8 +1,0 @@
----
-- hosts: 127.0.0.1
-
-  vars:
-    host_id: "local"
-
-  tasks:
-    - debug: msg="Hello ansible. host_id = {{ host_id }}"
