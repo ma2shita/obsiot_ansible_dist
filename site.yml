@@ -11,10 +11,8 @@
         - {name: "appliance.sh.diff",     sha256sum: "9fb4a71e93d31ca24426b441d9b8d20d274117cb0950ebc74c5312dbef6c498b"}
         - {name: "fwm8blz02-es1.js.diff", sha256sum: "f8b877d3ea7a2b5eb3380e0853f724dda0089d160d8234a6a4d35e459a5e1cc9"}
 
-    - patch: src={{ work_dir }}/{{ item }}
-      with_items:
-        - appliance.sh.diff
-        - fwm8blz02-es1.js.diff
+    - patch: src={{ work_dir }}/appliance.sh.diff     basedir=/var/webui/bin
+    - patch: src={{ work_dir }}/fwm8blz02-es1.js.diff basedir=/opt/pd/handler/node_modules/fsensor/lib
 
 #    - copy: src={{ work_dir }} dst=bb
 
