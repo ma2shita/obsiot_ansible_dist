@@ -1,0 +1,11 @@
+---
+  - hosts: localhost
+    tasks:
+      - service: name=openblocks-iot-webui state=stopped
+
+      - file: path=/var/webui/ state=absent
+      - unarchive: src={{ ansible_env.PWD }}/webui107_init.tgz dest=/var/
+
+      - unarchive: src={{ ansible_env.PWD }}/etc-gitrepo107_init.tgz dest=/etc/
+      - shell: git reset --hard i ; git clean -f chdir=/etc/
+      - file: path=/etc/.git/ state=absent
