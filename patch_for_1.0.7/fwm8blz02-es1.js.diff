@@ -1,0 +1,32 @@
+--- /opt/pd/handler/node_modules/fsensor/lib/fwm8blz02-es1.js.orig	2016-03-02 20:42:04.386991910 +0900
++++ /opt/pd/handler/node_modules/fsensor/lib/fwm8blz02-es1.js	2016-03-02 20:42:48.986993067 +0900
+@@ -366,10 +366,10 @@
+ 		return;
+ 	}
+ 
+-	var temperature = parseFloat((data.readInt16LE(10) / 333.87 + 21).toFixed(1));
+-	var accelx = parseFloat((data.readInt16LE(12) / 2048).toFixed(1));
+-	var accely = parseFloat((data.readInt16LE(14) / 2048).toFixed(1));
+-	var accelz = parseFloat((data.readInt16LE(16) / 2048).toFixed(1));
++	var temperature = parseFloat((data.readInt16LE(10) / 333.87 + 21).toFixed(2));
++	var accelx = parseFloat((data.readInt16LE(12) / 2048).toFixed(3));
++	var accely = parseFloat((data.readInt16LE(14) / 2048).toFixed(3));
++	var accelz = parseFloat((data.readInt16LE(16) / 2048).toFixed(3));
+ 
+ 	callback(temperature, accelx, accely, accelz);
+ };
+@@ -409,10 +409,10 @@
+ 		return;
+ 	}
+ 
+-	var temperature = parseFloat((data.readInt16LE(6) / 333.87 + 21).toFixed(1));
+-	var accelx = parseFloat((data.readInt16LE(8) / 2048).toFixed(1));
+-	var accely = parseFloat((data.readInt16LE(10) / 2048).toFixed(1));
+-	var accelz = parseFloat((data.readInt16LE(12) / 2048).toFixed(1));
++	var temperature = parseFloat((data.readInt16LE(6) / 333.87 + 21).toFixed(2));
++	var accelx = parseFloat((data.readInt16LE(8) / 2048).toFixed(3));
++	var accely = parseFloat((data.readInt16LE(10) / 2048).toFixed(3));
++	var accelz = parseFloat((data.readInt16LE(12) / 2048).toFixed(3));
+ 
+ 	callback(temperature, accelx, accely, accelz);
+ };

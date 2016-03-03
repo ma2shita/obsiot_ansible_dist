@@ -1,0 +1,23 @@
+--- /var/webui/bin/appliance.sh.orig	2016-03-02 19:18:09.224049502 +0900
++++ /var/webui/bin/appliance.sh	2016-03-02 19:22:59.634057036 +0900
+@@ -1122,15 +1122,18 @@
+ 		( ifup -i /tmp/.network/interfaces.boot wlan0 2> /dev/null ) ; true
+ 		{
+ 			if [ -e "$SER_FILE" ] ; then
+-				SSID=iotfamily_`cat $SER_FILE | tr -d "\n"`
++				_SN=$(cat $SER_FILE | tr -d "\n")
++				SSID=iotfamily_${_SN}
++				FREQ_CH=$(($(printf "%d\n" 0x${_SN}) % 11 + 1))
+ 			else
+ 				SSID=`ip addr show dev wlan0 | awk '/link\/ether/{print "iotfamily_"$2}' | sed -e "s|:||g"`
++				FREQ_CH=1
+ 			fi
+ 			PASS=openblocks
+ 			echo "interface=wlan0"
+ 			echo "driver=nl80211"
+ 			echo "ssid=$SSID"
+-			echo "channel=1"
++			echo "channel=${FREQ_CH}"
+ 			echo "wpa=2"
+ 			echo "wpa_passphrase=$PASS"
+ 			echo "wpa_key_mgmt=WPA-PSK"
