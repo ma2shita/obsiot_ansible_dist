@@ -3,10 +3,10 @@
 
   vars:
     work_dir: "/var/tmp"
-    base_url: "https://"
+    base_url: "https://github.com/ma2shita/obsiot_ansible_dist/raw/2016-0312_handson"
 
   tasks:
-    - get_url: url={{ base_url }}/{{ item.name }} dest={{ work_dir }} sha256sum={{ item.sha256sum }} force=yes
+    - get_url: url={{ base_url }}/patch_for_1.0.7/{{ item.name }} dest={{ work_dir }} sha256sum={{ item.sha256sum }} force=yes
       with_items:
         - {name: "appliance.sh.diff",     sha256sum: "9fb4a71e93d31ca24426b441d9b8d20d274117cb0950ebc74c5312dbef6c498b"}
         - {name: "fwm8blz02-es1.js.diff", sha256sum: "f8b877d3ea7a2b5eb3380e0853f724dda0089d160d8234a6a4d35e459a5e1cc9"}
