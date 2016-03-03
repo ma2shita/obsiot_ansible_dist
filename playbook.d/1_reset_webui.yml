@@ -9,3 +9,8 @@
       - unarchive: src={{ ansible_env.PWD }}/etc-gitrepo107_init.tgz dest=/etc/
       - shell: git reset --hard i ; git clean -f chdir=/etc/
       - file: path=/etc/.git/ state=absent
+      - file: path=/etc/ssh/{{ item }} mode=0400
+        with_items:
+          - ssh_host_rsa_key
+          - ssh_host_dsa_key
+          - ssh_host_ecdsa_key

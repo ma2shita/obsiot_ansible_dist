@@ -24,7 +24,8 @@
     - file: path=/srv/reset/ state=absent
     - git: repo=https://github.com/ma2shita/obsiot_ansible_dist.git dest=/srv/reset/ version=2016-0312_handson
     - file: path=/srv/reset/reset_bx1.sh mode=0755
-#    - service: name=openblocks-iot-webui enabled=yes
 
+#    - shell: echo "autostart = false" >> /etc/supervisor/conf.d/setup_by_ansible.conf
+#    - service: name=openblocks-iot-webui enabled=yes
 #    - command: halt
 #EoPlaybook
