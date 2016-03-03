@@ -1,13 +1,11 @@
 ---
-- hosts: 127.0.0.1
+- hosts: localhost
 
   vars:
     work_dir: "/var/tmp"
     base_url: "https://"
 
   tasks:
-    - debug: msg="Hello ansible. host_id = {{ host_id }}"
-
 #    - get_url: url={{ base_url }}/{{ item.name }} dest={{ work_dir }} sha256sum={{ item.sha256sum }} force=yes
 #      with_items:
 #        - {name: "", sha256sum: ""}
@@ -19,6 +17,9 @@
 #        - pd-handler-uart
 #        - ssh
 
+    - git: repo=https://github.com/ma2shita/obsiot_ansible_dist.git dest=/srv/reset/ version=2016-0312_handson
+    - file: path=/srv/reset/reset_bx1.sh mode=0755
 #    - service: name=openblocks-iot-webui enabled=yes
+
 #    - command: halt
 #EoPlaybook
