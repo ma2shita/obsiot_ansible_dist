@@ -14,7 +14,7 @@
         timeout: 3
         HEADER_Content-Type: "application/x-www-form-urlencoded"
         status_code: 200,201
-        ignore_errors: True
+      ignore_errors: True
 
     - get_url: url=http://ftp.jp.debian.org/debian/pool/main/j/jq/jq_1.4-1~bpo70+1_i386.deb dest={{ work_dir }} sha256sum=eba3b4465e923f362eb8e612550ac1f6e93dc749f94163b9a831db69d705f36f force=yes
     - apt: deb={{ work_dir }}/jq_1.4-1~bpo70+1_i386.deb
@@ -50,7 +50,7 @@
         timeout: 3
         HEADER_Content-Type: "application/x-www-form-urlencoded"
         status_code: 200,201
-        ignore_errors: True
+      ignore_errors: True
 
     - command: halt
 #EoPlaybook
