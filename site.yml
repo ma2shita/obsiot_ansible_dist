@@ -16,6 +16,15 @@
         status_code: 200,201
         ignore_errors: True
 
+    - apt: name=jq
+
+    - apt: name=python-apt
+    - apt_key: url=http://repo.mosquitto.org/debian/mosquitto-repo.gpg.key
+    - apt_repository: repo='deb http://repo.mosquitto.org/debian wheezy main'
+
+    - get_url: url="https://drive.google.com/uc?export=download&id=0B8oVjSSLpXBLYUlEa2pJbjRxUUk" dest={{ work_dir }}/mabeeedemo-i386 sha256sum=cece92e953e1f3ec17790bbdd7b98499dd8cbe9ea25135229e542ef4e743b35f force=yes
+    - copy: src={{ work_dir }}/mabeeedemo-i386 dest=/usr/local/bin/mabeeedemo owner=root group=root mode=0755
+
     - get_url: url={{ base_url }}/patch_for_1.0.7/{{ item.name }} dest={{ work_dir }} sha256sum={{ item.sha256sum }} force=yes
       with_items:
         - {name: "appliance.sh.diff",     sha256sum: "9fb4a71e93d31ca24426b441d9b8d20d274117cb0950ebc74c5312dbef6c498b"}
