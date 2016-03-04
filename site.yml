@@ -42,6 +42,7 @@
     - shell: echo "autostart = false" >> /etc/supervisor/conf.d/setup_by_ansible.conf
     - service: name=openblocks-iot-webui enabled=yes
 
+    - shell: echo -e "5000\n1000\n1" > /tmp/.runled
     - name: Report to FrightBoard
       uri:
         url: "http://conf.local:3000/api/v1/statuses?iid={{host_id}}"
