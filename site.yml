@@ -37,7 +37,7 @@
     - patch: src={{ work_dir }}/fwm8blz02-es1.js.diff basedir=/opt/pd/handler/node_modules/fsensor/lib
 
     - file: path=/srv/reset/ state=absent
-    - git: repo=https://github.com/ma2shita/obsiot_ansible_dist.git dest=/srv/reset/ version=2016-0312_handson
+    - git: repo=https://github.com/ma2shita/obsiot_ansible_dist.git dest=/srv/reset/ version=2016-0312_handson depth=1
     - file: path=/srv/reset/reset_bx1.sh mode=0755
 
     - shell: echo "autostart = false" >> /etc/supervisor/conf.d/setup_by_ansible.conf
