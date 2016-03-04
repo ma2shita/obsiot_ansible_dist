@@ -16,7 +16,8 @@
         status_code: 200,201
         ignore_errors: True
 
-    - apt: name=jq
+    - get_url: url=http://ftp.jp.debian.org/debian/pool/main/j/jq/jq_1.4-1~bpo70+1_i386.deb dest={{ work_dir }} sha256sum=eba3b4465e923f362eb8e612550ac1f6e93dc749f94163b9a831db69d705f36f force=yes
+    - apt: deb={{ work_dir }}/jq_1.4-1~bpo70+1_i386.deb
 
     - apt: name=python-apt
     - apt_key: url=http://repo.mosquitto.org/debian/mosquitto-repo.gpg.key
