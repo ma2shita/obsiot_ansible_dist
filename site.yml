@@ -6,6 +6,7 @@
     base_url: "https://github.com/ma2shita/obsiot_ansible_dist/raw/2016-0312_handson"
 
   tasks:
+    - shell: echo -e "5000\n1000\n3" > /tmp/.runled
     - name: Report to FrightBoard
       uri:
         url: "http://conf.local:3000/api/v1/statuses?iid={{host_id}}"
