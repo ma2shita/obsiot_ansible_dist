@@ -22,6 +22,7 @@
     - apt: name=python-apt
     - apt_key: url=http://repo.mosquitto.org/debian/mosquitto-repo.gpg.key
     - apt_repository: repo='deb http://repo.mosquitto.org/debian wheezy main'
+    - apt: name=mosquitto
 
     - get_url: url="https://drive.google.com/uc?export=download&id=0B8oVjSSLpXBLYUlEa2pJbjRxUUk" dest={{ work_dir }}/mabeeedemo-i386 sha256sum=cece92e953e1f3ec17790bbdd7b98499dd8cbe9ea25135229e542ef4e743b35f force=yes
     - copy: src={{ work_dir }}/mabeeedemo-i386 dest=/usr/local/bin/mabeeedemo owner=root group=root mode=0755
